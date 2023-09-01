@@ -24,7 +24,8 @@ Hangman.prototype.makeGuess = function (guess) {
     if (typeof guess === 'string') {
         if (isUnique) {
             this.guessedLetters.push(guess)
-        } else if (isUnique && isBadGuess) {
+        }
+        if (isUnique && isBadGuess) {
             this.remainingGuesses--
         }
     }
@@ -33,10 +34,10 @@ Hangman.prototype.makeGuess = function (guess) {
 const game1 = new Hangman('Cat', 2)
 const game2 = new Hangman('Dog Shit', 3)
 
-console.log(game1.makeGuess('a'))
-console.log(game1.makeGuess('c'))
-console.log(game1.makeGuess('z'))
+game1.makeGuess('a')
+game1.makeGuess('c')
+game1.makeGuess('z')
 console.log(game1.getPuzzle())
 console.log(game1.remainingGuesses)
 
-console.log(game2.getPuzzle('s'))
+console.log(game2.getPuzzle())
