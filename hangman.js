@@ -40,4 +40,15 @@ game1.makeGuess('z')
 console.log(game1.getPuzzle())
 console.log(game1.remainingGuesses)
 
+game2.makeGuess('d')
+game2.makeGuess('s')
+
 console.log(game2.getPuzzle())
+console.log(game2.remainingGuesses)
+
+window.addEventListener('keypress', function (e) {
+    const guess = String.fromCharCode(e.charCode)
+    game1.makeGuess(guess)
+    console.log(game1.getPuzzle())
+    console.log(game1.remainingGuesses)
+})
