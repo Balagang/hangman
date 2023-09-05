@@ -1,47 +1,18 @@
-// Prototypal Inheritance
-
-const Hangman = function (word, remainingGuesses) {
-    this.word = word.toLowerCase().split('')
-    this.remainingGuesses = remainingGuesses
-    this.guessedLetters = []
-}
-
-Hangman.prototype.getPuzzle = function () {
-    let puzzle = ''
-    this.word.forEach((letter) => {
-        if (this.guessedLetters.includes(letter) || letter === ' ') {
-            puzzle += letter
-        } else {
-            puzzle += '*'
-        }
-    })
-    return puzzle
-}
-Hangman.prototype.makeGuess = function (guess) {
-    guess = guess.toLowerCase()
-    const isUnique = !this.guessedLetters.includes(guess)
-    const isBadGuess = !this.word.includes(guess)
-    if (typeof guess === 'string') {
-        if (isUnique) {
-            this.guessedLetters.push(guess)
-        }
-        if (isUnique && isBadGuess) {
-            this.remainingGuesses--
-        }
-    }
-}
 
 const game1 = new Hangman('Cat', 2)
 const game2 = new Hangman('Dog Shit', 3)
 
-game1.makeGuess('a')
-game1.makeGuess('c')
-game1.makeGuess('z')
+const div = document.querySelector('#main-div')
+const p = document.createElement('p')
+const remainingQty = document.createElement('p')
+
+p.textContent = game1.getPuzzle()
+remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
+div.appendChild(remainingQty)
+div.appendChild(p)
+
 console.log(game1.getPuzzle())
 console.log(game1.remainingGuesses)
-
-game2.makeGuess('d')
-game2.makeGuess('s')
 
 console.log(game2.getPuzzle())
 console.log(game2.remainingGuesses)
@@ -51,4 +22,6 @@ window.addEventListener('keypress', function (e) {
     game1.makeGuess(guess)
     console.log(game1.getPuzzle())
     console.log(game1.remainingGuesses)
+    p.textContent = game1.getPuzzle()
+    remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
 })
