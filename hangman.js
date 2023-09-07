@@ -31,16 +31,31 @@ Hangman.prototype.makeGuess = function (guess) {
             this.remainingGuesses--
         }
     }
+    game1.gameStatus()
+
 }
 
 Hangman.prototype.gameStatus = function () {
-    const failed = this.remainingGuesses < 0
-    let finished = true
-    this.word.forEach((letter) => {
-        if (!this.guessedLetters.includes(letter)) {
-            finished = false
-        }
+
+    // const letterUnguessed = this.word.filter((letter) => {
+    //     return !this.guessedLetters.includes(letter)
+
+    // })
+    // console.log(letterUnguessed.length)
+
+    // let finished = true
+    // this.word.forEach((letter) => {
+    //     if (!this.guessedLetters.includes(letter)) {
+    //         finished = false
+    //     }
+    // })
+
+    const finished = this.word.every((letter) => {
+        return this.guessedLetters.includes(letter)
+        // console.log(this.guessedLetters.includes(letter))
     })
+    console.log(finished)
+    const failed = this.remainingGuesses < 0
 
     if (failed) {
         this.status = 'failed'
