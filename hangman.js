@@ -1,27 +1,59 @@
 
+// Prototypal Inheritance
+
+const Hangman = function (word, remainingGuesses) {
+    this.word = word.toLowerCase().split('')
+    this.remainingGuesses = remainingGuesses
+    this.guessedLetters = []
+    this.status = 'playing'
+}
+
+Hangman.prototype.getPuzzle = function () {
+    let puzzle = ''
+    this.word.forEach((letter) => {
+        if (this.guessedLetters.includes(letter) || letter === ' ') {
+            puzzle += letter
+        } else {
+            puzzle += '*'
+        }
+    })
+    return puzzle
+}
+Hangman.prototype.makeGuess = function (guess) {
+    guess = guess.toLowerCase()
+    const isUnique = !this.guessedLetters.includes(guess)
+    const isBadGuess = !this.word.includes(guess)
+    if (typeof guess === 'string') {
+        if (isUnique) {
+            this.guessedLetters.push(guess)
+        }
+        if (isUnique && isBadGuess) {
+            this.remainingGuesses--
+        }
+    }
+}
+
+Hangman.prototype.gameStatus = function () {
+    const failed = this.remainingGuesses < 0
+    let finished = true
+    this.word.forEach((letter) => {
+        if (!this.guessedLetters.includes(letter)) {
+            finished = false
+        }
+    })
+
+    if (failed) {
+        this.status = 'failed'
+    }
+    if (finished) {
+        this.status = 'finished'
+    }
+    if (!failed && !finished) {
+        this.status = 'playing'
+    }
+}
+
+
 const game1 = new Hangman('Cat', 2)
 const game2 = new Hangman('Dog Shit', 3)
 
-const div = document.querySelector('#main-div')
-const p = document.createElement('p')
-const remainingQty = document.createElement('p')
-
-p.textContent = game1.getPuzzle()
-remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
-div.appendChild(remainingQty)
-div.appendChild(p)
-
-console.log(game1.getPuzzle())
-console.log(game1.remainingGuesses)
-
-console.log(game2.getPuzzle())
-console.log(game2.remainingGuesses)
-
-window.addEventListener('keypress', function (e) {
-    const guess = String.fromCharCode(e.charCode)
-    game1.makeGuess(guess)
-    console.log(game1.getPuzzle())
-    console.log(game1.remainingGuesses)
-    p.textContent = game1.getPuzzle()
-    remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
-})
