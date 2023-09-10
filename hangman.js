@@ -19,6 +19,7 @@ Hangman.prototype.getPuzzle = function () {
     })
     return puzzle
 }
+
 Hangman.prototype.makeGuess = function (guess) {
     guess = guess.toLowerCase()
     const isUnique = !this.guessedLetters.includes(guess)
@@ -36,7 +37,6 @@ Hangman.prototype.makeGuess = function (guess) {
 }
 
 Hangman.prototype.gameStatus = function () {
-
     // const letterUnguessed = this.word.filter((letter) => {
     //     return !this.guessedLetters.includes(letter)
 
@@ -50,24 +50,21 @@ Hangman.prototype.gameStatus = function () {
     //     }
     // })
 
+    const failed = this.remainingGuesses < 0
     const finished = this.word.every((letter) => {
+        //.every method only accept all true. one single false results to false
         return this.guessedLetters.includes(letter)
         // console.log(this.guessedLetters.includes(letter))
     })
-    console.log(finished)
-    const failed = this.remainingGuesses < 0
-
+    // console.log(finished)
     if (failed) {
         this.status = 'failed'
-    }
-    if (finished) {
+    } else if (finished) {
         this.status = 'finished'
-    }
-    if (!failed && !finished) {
+    } else if (!failed && !finished) {
         this.status = 'playing'
     }
 }
-
 
 const game1 = new Hangman('Cat', 2)
 const game2 = new Hangman('Dog Shit', 3)

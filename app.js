@@ -11,9 +11,11 @@ div.appendChild(puzzleEl)
 div.appendChild(remainingQty)
 
 window.addEventListener('keypress', function (e) {
-    const guess = String.fromCharCode(e.charCode)
+    // console.log(e.charCode)
+    // const guess = String.fromCharCode(e.charCode)
+    const guess = e.key
+    console.log(guess)
     game1.makeGuess(guess)
-    game1.gameStatus()
     // console.log(game1.getPuzzle())
     // console.log(game1.remainingGuesses)
     puzzleEl.textContent = game1.getPuzzle()
