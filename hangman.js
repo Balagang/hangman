@@ -1,5 +1,5 @@
 
-// Prototypal Inheritance
+// Prototype Inheritance
 /*
 const Hangman = function (word, remainingGuesses) {
     this.word = word.toLowerCase().split('')
@@ -80,6 +80,7 @@ Hangman.prototype.getStatusMessage = function () {
 }
 */
 
+// Different way to define things but still having the same behavior as prototype inheritance
 class Hangman {
     constructor(word, remainingGuesses) {
         this.word = word.toLowerCase().split('')
@@ -87,16 +88,16 @@ class Hangman {
         this.guessedLetters = []
         this.status = 'playing'
     }
-    getPuzzle() {
-        let puzzle = ''
+    get puzzle() {
+        let _puzzle = ''
         this.word.forEach((letter) => {
             if (this.guessedLetters.includes(letter) || letter === ' ') {
-                puzzle += letter
+                _puzzle += letter
             } else {
-                puzzle += '*'
+                _puzzle += '*'
             }
         })
-        return puzzle
+        return _puzzle
     }
     makeGuess(guess) {
         guess = guess.toLowerCase()
@@ -113,7 +114,7 @@ class Hangman {
                 this.remainingGuesses--
             }
         }
-        game1.gameStatus()
+        this.gameStatus()
     }
     gameStatus() {
         const failed = this.remainingGuesses < 0
@@ -131,7 +132,7 @@ class Hangman {
             this.status = 'playing'
         }
     }
-    getStatusMessage() {
+    get statusMessage() {
         if (this.status === 'playing') {
             return `Guesses left: ${this.remainingGuesses}`
         } else if (this.status === 'failed') {
