@@ -4,7 +4,8 @@ const remainingQty = document.querySelector('#guesses')
 const p = document.createElement('p')
 
 puzzleEl.textContent = game1.getPuzzle()
-remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
+// remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
+remainingQty.textContent = game1.getStatusMessage()
 p.textContent = game1.status
 div.appendChild(p)
 div.appendChild(puzzleEl)
@@ -19,6 +20,6 @@ window.addEventListener('keypress', function (e) {
     // console.log(game1.getPuzzle())
     // console.log(game1.remainingGuesses)
     puzzleEl.textContent = game1.getPuzzle()
-    remainingQty.textContent = `Remaining Guesses: ${game1.remainingGuesses}`
+    remainingQty.textContent = game1.getStatusMessage()
     p.textContent = game1.status
 })
