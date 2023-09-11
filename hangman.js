@@ -89,15 +89,15 @@ class Hangman {
         this.status = 'playing'
     }
     get puzzle() {
-        let _puzzle = ''
+        let puzzle = ''
         this.word.forEach((letter) => {
             if (this.guessedLetters.includes(letter) || letter === ' ') {
-                _puzzle += letter
+                puzzle += letter
             } else {
-                _puzzle += '*'
+                puzzle += '*'
             }
         })
-        return _puzzle
+        return puzzle
     }
     makeGuess(guess) {
         guess = guess.toLowerCase()
@@ -107,22 +107,20 @@ class Hangman {
             return
         }
         if (typeof guess === 'string') {
-            if (isUnique) {
-                this.guessedLetters.push(guess)
-            }
-            if (isUnique && isBadGuess) {
-                this.remainingGuesses--
-            }
+        }
+        if (isUnique) {
+            this.guessedLetters.push(guess)
+        }
+        if (isUnique && isBadGuess) {
+            this.remainingGuesses--
         }
         this.gameStatus()
     }
     gameStatus() {
         const failed = this.remainingGuesses < 0
-        const finished = this.word.every((letter) => {
-            //.every method only accept all true. one single false results to false
-            return this.guessedLetters.includes(letter)
-            // console.log(this.guessedLetters.includes(letter))
-        })
+        //.every method only accept all true. one single false results to false
+        const finished = this.word.every((letter) => this.guessedLetters.includes(letter) || letter.includes(' '))
+        // console.log(this.guessedLetters.includes(letter))
         // console.log(finished)
         if (failed) {
             this.status = 'failed'
@@ -142,6 +140,6 @@ class Hangman {
         }
     }
 }
-const game1 = new Hangman('Cat', 2)
+const game1 = new Hangman('Car parts', 2)
 const game2 = new Hangman('Dog Shit', 3)
 
