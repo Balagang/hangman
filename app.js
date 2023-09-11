@@ -40,22 +40,18 @@ request.open('GET', 'https://puzzle.mead.io/puzzle?wordCount=3')
 request.send()
 
 const countryCode = 'TH'
-const country = new XMLHttpRequest()
-country.addEventListener('readystatechange', (e) => {
+const countryRequest = new XMLHttpRequest()
+countryRequest.addEventListener('readystatechange', (e) => {
     if (e.target.readyState === 4 && e.target.status === 200) {
-
         const data = JSON.parse(e.target.responseText)
         console.log(data)
-        data.forEach(element => {
-            if (element.altSpellings[0] === countryCode) {
-                console.log(element.name.common)
-            }
-        })
+        const country = data.find((element) => element.altSpellings[0] === countryCode)
+        console.log(country.name.common)
     } else if (e.target.readyState === 4) {
-        console.log('An error has taken place')
+        console.log('Unable to fetch data')
     }
 })
-country.open('GET', 'https://restcountries.com/v3.1/all')
-country.send()
+countryRequest.open('GET', 'https://restcountries.com/v3.1/all')
+countryRequest.send()
 
 // console.log(request)
