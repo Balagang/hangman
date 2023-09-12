@@ -25,33 +25,21 @@ window.addEventListener('keypress', (e) => {
     p.textContent = game1.status
 })
 
-const request = new XMLHttpRequest()
-
-request.addEventListener('readystatechange', (e) => {
-    if (e.target.readyState === 4 && e.target.status === 200) {
-
-        const data = JSON.parse(e.target.responseText)
-        console.log(data)
-    } else if (e.target.readyState === 4) {
-        console.log('An error has taken place')
+const wordCount = 2
+getPuzzle(wordCount, (error, puzzle) => {
+    if (error) {
+        console.log(error)
+    } else if (puzzle) {
+        console.log(puzzle)
     }
 })
-request.open('GET', 'https://puzzle.mead.io/puzzle?wordCount=3')
-request.send()
 
 const countryCode = 'TH'
-const countryRequest = new XMLHttpRequest()
-countryRequest.addEventListener('readystatechange', (e) => {
-    if (e.target.readyState === 4 && e.target.status === 200) {
-        const data = JSON.parse(e.target.responseText)
-        console.log(data)
-        const country = data.find((element) => element.altSpellings[0] === countryCode)
-        console.log(country.name.common)
-    } else if (e.target.readyState === 4) {
-        console.log('Unable to fetch data')
+getCountryDtetails(countryCode, (error, countryInfo) => {
+    if (error) {
+        console.log(error)
+    } else if (countryInfo) {
+        console.log(countryInfo)
     }
 })
-countryRequest.open('GET', 'https://restcountries.com/v3.1/all')
-countryRequest.send()
-
-// console.log(request)
+console.log('Do something else')
