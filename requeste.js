@@ -15,20 +15,23 @@ const getCountryDtetails = (countryCode) => new Promise((resolve, reject) => {
     countryRequest.send()
 })
 
-// const getPuzzle = (wordCount, callback) => {
-//     const request = new XMLHttpRequest()
-//     request.addEventListener('readystatechange', (e) => {
-//         if (e.target.readyState === 4 && e.target.status === 200) {
-//             const data = JSON.parse(e.target.responseText)
-//             callback(undefined, data.puzzle)
-//         } else if (e.target.readyState === 4) {
-//             callback('An error has taken place', undefined)
-//         }
-//     })
-//     request.open('GET', `https://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
-//     request.send()
-// }
+/* 
+const getPuzzle = (wordCount, callback) => {
+    const request = new XMLHttpRequest()
+    request.addEventListener('readystatechange', (e) => {
+        if (e.target.readyState === 4 && e.target.status === 200) {
+            const data = JSON.parse(e.target.responseText)
+            callback(undefined, data.puzzle)
+        } else if (e.target.readyState === 4) {
+            callback('An error has taken place', undefined)
+        }
+    })
+    request.open('GET', `https://puzzle.mead.io/puzzle?wordCount=${wordCount}`)
+    request.send()
+}
+*/
 
+/*
 const getPuzzle = (wordCount) => new Promise((resolve, reject) => {
     const request = new XMLHttpRequest()
     request.addEventListener('readystatechange', (e) => {
@@ -43,3 +46,14 @@ const getPuzzle = (wordCount) => new Promise((resolve, reject) => {
     request.send()
 
 })
+*/
+
+const getPuzzle = (wordCount) => {
+    return fetch(`https://puzzle.mead.io/puzzle?wordCount=${wordCount}`, {}).then((response) => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            throw new Error('Unable to fetch puzzle')
+        }
+    }).then((data) => data.puzzle).catch((err) => `Error ${err}`)
+}

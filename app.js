@@ -51,12 +51,39 @@ const tip20Percent = createTipper(.20)
 console.log(tip15Percent(100))
 console.log(tip20Percent(350))
 
-const myPromise = new Promise((resolve, reject) => {
+const myPromise = (num) => new Promise((resolve, reject) => {
     setTimeout(() => {
-        resolve('Data from Resolve')
-        // reject('This is promise error')
+        typeof num === 'number' ? resolve(num * 2) : reject('Number must be provided!')
     }, 2000);
 })
 
-console.log(myPromise.then((returnData) => console.log(returnData)), (err) => console.log(err))
-// console.log(myPromise)
+//Promise chaining
+myPromise(3).then((returnData) => {
+    console.log(returnData), (err) => console.log(err)
+})
+
+myPromise(10).then((data) => {
+    console.log(data)
+    return myPromise(data)
+}).then((data) => {
+    console.log(data)
+    return myPromise(data)
+}).then((data) => {
+    console.log(data)
+}).catch((err) => [
+    console.log(err)
+])
+
+fetch(`https://puzzle.mead.io/puzzle`, {}).then((response) => {
+    if (response.status === 200) {
+        console.log(response)
+        return response.json()
+    } else {
+        throw new Error('Unable to fetch')
+    }
+}
+).then((data) => {
+    console.log(`Data from Fetch(${data.puzzle})`)
+}).catch((err) => {
+    console.log(err)
+})
