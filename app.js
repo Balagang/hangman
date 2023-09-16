@@ -32,12 +32,13 @@ getPuzzle(wordCount).then((puzzle) => {
     console.log(err)
 })
 
-const countryCode = 'TH'
-getCountryDtetails(countryCode).then((country) => {
-    console.log(country)
-}, (err) => {
-    console.log(err)
-})
+// const countryCode = 'TH'
+// getCountry(countryCode).then((country) => {
+//     console.log(country)
+// }).catch((err) => {
+//     console.log(err)
+// }
+// )
 
 // currying function using closure (Closure is the combination of a function and the lexical scope in which its was defined)
 const createTipper = (baseTip) => {
@@ -76,7 +77,7 @@ myPromise(10).then((data) => {
 
 fetch(`https://puzzle.mead.io/puzzle`, {}).then((response) => {
     if (response.status === 200) {
-        console.log(response)
+        // console.log(response)
         return response.json()
     } else {
         throw new Error('Unable to fetch')
@@ -84,6 +85,14 @@ fetch(`https://puzzle.mead.io/puzzle`, {}).then((response) => {
 }
 ).then((data) => {
     console.log(`Data from Fetch(${data.puzzle})`)
+}).catch((err) => {
+    console.log(err)
+})
+getLocation().then((location) => {
+    // console.log(getCountry(location))
+    return getCountry(location)
+}).then((country) => {
+    console.log(country)
 }).catch((err) => {
     console.log(err)
 })

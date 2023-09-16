@@ -1,4 +1,7 @@
-const getCountryDtetails = (countryCode) => new Promise((resolve, reject) => {
+
+
+/* 
+const getCountryOld= (countryCode) => new Promise((resolve, reject) => {
     const countryRequest = new XMLHttpRequest()
     countryRequest.addEventListener('readystatechange', (e) => {
 
@@ -14,6 +17,18 @@ const getCountryDtetails = (countryCode) => new Promise((resolve, reject) => {
     countryRequest.open('GET', 'https://restcountries.com/v3.1/all')
     countryRequest.send()
 })
+*/
+
+const getCountry = (countryCode) => {
+    return fetch('https://restcountries.com/v3.1/all').then((response) => {
+        if (response.status === 200) {
+            return response.json()
+        } else { throw new Error('Unable to fetch country') }
+    }).then((data) => {
+        const country = data.find((element) => element.altSpellings[0] === countryCode)
+        return country.name.common
+    })
+}
 
 /* 
 const getPuzzle = (wordCount, callback) => {
@@ -56,4 +71,14 @@ const getPuzzle = (wordCount) => {
             throw new Error('Unable to fetch puzzle')
         }
     }).then((data) => data.puzzle).catch((err) => `Error ${err}`)
+}
+
+const getLocation = () => {
+    return fetch(`https://ipinfo.io/json?token=1a11bd55cc8f9c`).then((response) => {
+        if (response.status === 200) {
+            return response.json()
+        } else {
+            throw new Error('Unable to fetch data')
+        }
+    }).then((data) => data.country)
 }
