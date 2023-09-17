@@ -2,6 +2,7 @@ const div = document.querySelector('#main-div')
 const puzzleEl = document.querySelector('#puzzle')
 const remainingQty = document.querySelector('#guesses')
 const p = document.createElement('p')
+
 let game1
 
 // // puzzleEl.textContent = game1.getPuzzle()
@@ -28,9 +29,15 @@ window.addEventListener('keypress', (e) => {
     render()
 })
 const render = () => {
-    puzzleEl.textContent = game1.puzzle
+    // console.log(game1.puzzle.split())
+    puzzleEl.textContent = ''
     remainingQty.textContent = game1.statusMessage
-    p.textContent = game1.status
+    p.textContent = game1.status.toUpperCase()
+    game1.puzzle.split('').forEach((letter) => {
+        const span = document.createElement('span')
+        span.textContent = letter
+        puzzleEl.appendChild(span)//game1.puzzle
+    });
 }
 const startGame = async () => {
     const puzzle = await getPuzzle('2')
