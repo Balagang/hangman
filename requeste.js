@@ -41,7 +41,21 @@ const getCountry = async (countryCode) => {
         throw new Error('Unable to fetch country')
     }
 }
+const getLocation = async () => {
+    const response = await fetch(`https://ipinfo.io/json?token=1a11bd55cc8f9c`)
 
+    if (response.status === 200) {
+        const data = await response.json()
+        return data.country
+    } else {
+        throw new Error('Unable to get current location')
+    }
+}
+
+const getCurrentCountry = async () => {
+    const location = await getLocation()
+    return getCountry(location)
+}
 /* 
 const getPuzzle = (wordCount, callback) => {
     const request = new XMLHttpRequest()
@@ -96,13 +110,3 @@ const getPuzzle = async (wordCount) => {
     }
 }
 
-const getLocation = async () => {
-    const response = await fetch(`https://ipinfo.io/json?token=1a11bd55cc8f9c`)
-
-    if (response.status === 200) {
-        const data = await response.json()
-        return data.country
-    } else {
-        throw new Error('Unable to fetch data')
-    }
-}

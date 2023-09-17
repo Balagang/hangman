@@ -140,6 +140,6 @@ class Hangman {
         }
     }
 }
-const game1 = new Hangman('Car parts', 2)
-const game2 = new Hangman('Dog Shit', 3)
+// const game1 = new Hangman('Car parts', 2)
+// const game2 = new Hangman('Dog legs', 3)
 
