@@ -118,7 +118,7 @@ class Hangman {
     }
     gameStatus() {
         const failed = this.remainingGuesses < 0
-        //.every method only accept all true. one single false results to false
+        //.every() method only accept all true. one single false results to false
         const finished = this.word.every((letter) => this.guessedLetters.includes(letter) || letter.includes(' '))
         // console.log(this.guessedLetters.includes(letter))
         // console.log(finished)
